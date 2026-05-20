@@ -319,7 +319,7 @@ nav ul li a:hover{
     color:#d2a4ff;
 }
 
-/* PACKAGES */
+/* PACKAGES & TRUST CARDS */
 
 .packages{
 
@@ -534,6 +534,27 @@ nav ul li a:hover{
     background:#9d5cff;
 }
 
+/* REVIEWS & TRUST DESIGN */
+.trust-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    color: #b56cff;
+}
+
+.review-stars {
+    color: #ffb700;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.review-handle {
+    display: block;
+    font-size: 14px;
+    color: #7b2cff;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
 /* FOOTER */
 
 footer{
@@ -634,6 +655,26 @@ View Packages
 
 </div>
 
+</section>
+
+<!-- TRUST BUILDING SECTION -->
+<h2 class="section-title">Why Choose RedVion Boost</h2>
+<section class="packages">
+    <div class="card" style="text-align: center;">
+        <div class="trust-icon">🛡️</div>
+        <h3>Trusted Service</h3>
+        <p style="color: #ccc; font-size: 15px; line-height: 1.6;">Your account's safety is our highest priority. No passwords required, 100% risk-free operations.</p>
+    </div>
+    <div class="card" style="text-align: center;">
+        <div class="trust-icon">⚡</div>
+        <h3>Super Fast Delivery</h3>
+        <p style="color: #ccc; font-size: 15px; line-height: 1.6;">Our automated processing pipeline ensures your followers and likes start arriving within minutes.</p>
+    </div>
+    <div class="card" style="text-align: center;">
+        <div class="trust-icon">⏰</div>
+        <h3>24/7 Support</h3>
+        <p style="color: #ccc; font-size: 15px; line-height: 1.6;">Got questions? Our active team handles payments and operations around the clock via WhatsApp.</p>
+    </div>
 </section>
 
 <!-- FOLLOWERS -->
@@ -858,6 +899,20 @@ readonly>
 
 </div>
 
+<!-- DYNAMIC VALUE INPUT (Username or Link based on purchase choice) -->
+<div class="input-box" id="dynamicInputContainer" style="display: none;">
+
+<label id="dynamicLabel">
+Instagram Username
+</label>
+
+<input
+type="text"
+id="targetInput"
+placeholder="Enter details here...">
+
+</div>
+
 <button class="pay-btn"
 onclick="payNow()">
 
@@ -866,6 +921,35 @@ Proceed To WhatsApp
 </button>
 
 </div>
+
+<!-- REVIEWS SECTION -->
+<h2 class="section-title">What Our Clients Say</h2>
+<section class="packages">
+    <div class="card">
+        <div class="review-stars">★★★★★</div>
+        <h3>Abdul Rehman</h3>
+        <span class="review-handle">@abdul.rehman_tech</span>
+        <p style="color: #bbb; font-size: 15px; line-height: 1.6;">"Very happy with their professional system. Got 3000 active followers delivered safely. High quality profiles and instant response on WhatsApp."</p>
+    </div>
+    <div class="card">
+        <div class="review-stars">★★★★★</div>
+        <h3>Shamir Khan</h3>
+        <span class="review-handle">@shamir_khan.official</span>
+        <p style="color: #bbb; font-size: 15px; line-height: 1.6;">"Ordered the 1000 likes package for my new reel. Delivery was super fast and it really pushed my content onto the explore page!"</p>
+    </div>
+    <div class="card">
+        <div class="review-stars">★★★★★</div>
+        <h3>Mudassar Sheryan</h3>
+        <span class="review-handle">@mudassar_sheryan</span>
+        <p style="color: #bbb; font-size: 15px; line-height: 1.6;">"Excellent response time. No password needed, safe workflow, and real growth. Highly recommended service in Pakistan!"</p>
+    </div>
+    <div class="card">
+        <div class="review-stars">★★★★★</div>
+        <h3>Creator Boost Professional</h3>
+        <span class="review-handle">@creator_boost_pro</span>
+        <p style="color: #bbb; font-size: 15px; line-height: 1.6;">"We route multiple marketing profiles through RedVion Boost. Consistent, reliable, and premium quality metrics every single time."</p>
+    </div>
+</section>
 
 <!-- FOOTER -->
 
@@ -887,6 +971,21 @@ document.getElementById('packageName').value = name;
 
 document.getElementById('packagePrice').value = price;
 
+// Check if package is for likes or followers
+let dynamicLabel = document.getElementById('dynamicLabel');
+let targetInput = document.getElementById('targetInput');
+let container = document.getElementById('dynamicInputContainer');
+
+if(name.toLowerCase().includes('likes')){
+    dynamicLabel.innerText = "Instagram Video / Post Link";
+    targetInput.placeholder = "https://www.instagram.com/p/...";
+} else {
+    dynamicLabel.innerText = "Instagram Username";
+    targetInput.placeholder = "e.g. your_username";
+}
+
+container.style.display = "block";
+
 window.scrollTo({
 top:document.querySelector('.order-box').offsetTop,
 behavior:'smooth'
@@ -902,8 +1001,19 @@ document.getElementById('packageName').value;
 let packagePrice =
 document.getElementById('packagePrice').value;
 
+let targetData = 
+document.getElementById('targetInput').value;
+
+let labelType = 
+document.getElementById('dynamicLabel').innerText;
+
 if(packageName === '' || packagePrice === ''){
 alert('Please select a package first');
+return;
+}
+
+if(targetData.trim() === ''){
+alert('Please fill out your ' + labelType);
 return;
 }
 
@@ -911,7 +1021,8 @@ let message =
 `Hello RedVion 👋%0A%0A` +
 `I Want To Order:%0A%0A` +
 `Package: ${packageName}%0A` +
-`Price: ${packagePrice}%0A%0A` +
+`Price: ${packagePrice}%0A` +
+`${labelType}: ${targetData}%0A%0A` +
 `Please send payment details (Easypaisa / JazzCash).`;
 
 let url =
